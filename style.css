@@ -1,0 +1,196 @@
+/* GLOBAL STYLES */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Open Sans', sans-serif; 
+}
+
+/* Body & Layout */
+body { 
+    display: flex; 
+    background: #f9fbfd; 
+}
+
+/* SIDEBAR STYLES */
+.sidebar { 
+    width: 250px; 
+    background: #2c3e50; 
+    color: white; 
+    height: 100vh; 
+    padding: 20px; 
+    position: fixed; 
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1); 
+}
+
+.sidebar h2 { 
+    text-align: center; 
+    margin-bottom: 30px; 
+    font-weight: 600; 
+    color: #fff; 
+}
+
+/* Sidebar Links */
+.sidebar a { 
+    display: block; 
+    color: #b0c4de; 
+    padding: 15px 20px; 
+    text-decoration: none; 
+    border-radius: 4px; 
+    transition: 0.3s; 
+    margin-bottom: 5px; 
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar a:hover, 
+.sidebar a[style*="background:#34495e"] { 
+    background: #34495e !important; 
+    color: white; 
+}
+
+/* MAIN CONTENT */
+.main { 
+    margin-left: 250px; 
+    padding: 30px; 
+    width: 100%; 
+}
+
+/* Headings and Titles */
+h1 { 
+    color: #34495e; 
+    font-size: 28px; 
+    margin-bottom: 25px; 
+    border-bottom: 2px solid #eee; 
+    padding-bottom: 15px; 
+    font-weight: 700;
+}
+
+/* Global Card & List Look */
+.card, .chart-box, .list-box { 
+    background: white; 
+    padding: 25px; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05); 
+    margin-bottom: 25px; 
+}
+
+.list-box h3 {
+    font-size: 18px;
+    color: #34495e;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+/* --- LOGIN PAGE STYLES (Used by index.php) --- */
+.login-card {
+    background: white;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* --- DASHBOARD KPI CARDS --- */
+.kpi-cards-container { 
+    display: flex; 
+    gap: 20px; 
+    margin-bottom: 30px; 
+}
+
+.kpi-card {
+    flex: 1;
+    border-left: 5px solid; 
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.kpi-card h4 { 
+    color: #888; 
+    font-size: 15px; 
+    margin-bottom: 2px; 
+    font-weight: 600;
+}
+
+.kpi-card h2 { 
+    font-size: 32px; 
+    font-weight: 800; 
+    color: #333; 
+}
+
+.kpi-icon { 
+    font-size: 40px; 
+    color: #ccc; 
+}
+
+/* Traffic Light/Status Colors */
+.border-success { border-left-color: #27ae60; } 
+.text-success { color: #27ae60 !important; }
+
+.border-warning { border-left-color: #f39c12; } 
+.text-warning { color: #f39c12 !important; }
+
+.border-danger { border-left-color: #e74c3c; } 
+.text-danger { color: #e74c3c !important; }
+
+.border-primary { border-left-color: #3498db; } 
+.text-primary { color: #3498db !important; }
+
+/* --- ALERT LIST STYLES (ENHANCED) --- */
+.alert-item { 
+    padding: 10px 0; 
+    border-bottom: 1px dotted #ccc; 
+    font-size: 14px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ENHANCEMENT: Highlight the "Critical" label itself */
+.alert-item .text-danger {
+    /* Adding background and padding to make the "Critical:" tag pop */
+    padding: 2px 8px;
+    border-radius: 4px;
+    background-color: #ffe8e8; /* Light red background */
+    font-weight: 700;
+    margin-right: 10px;
+}
+
+.alert-item:last-child { 
+    border-bottom: none; 
+}
+
+/* --- INVENTORY/ANALYTICS TABLE STYLES --- */
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-top: 10px; 
+}
+th, td { 
+    padding: 12px 15px; 
+    border-bottom: 1px solid #eee; 
+    text-align: left; 
+}
+th { 
+    background: #f4f7f6; 
+    font-weight: 600; 
+    color: #555;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+.btn { 
+    background: #3498db; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    cursor: pointer; 
+    border-radius: 4px; 
+    transition: background-color 0.2s;
+}
+.btn:hover {
+    background: #2980b9;
+}
