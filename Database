@@ -1,0 +1,82 @@
+-- =========================================================
+-- DATABASE SETUP
+-- =========================================================
+CREATE DATABASE IF NOT EXISTS scm_system;
+USE scm_system;
+
+-- =========================================================
+-- 1. USERS TABLE (Authentication)
+-- =========================================================
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL, 
+    email VARCHAR(100) UNIQUE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- =========================================================
+-- 2. INVENTORY TABLE (Core Product Data)
+-- =========================================================
+CREATE TABLE IF NOT EXISTS inventory (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(255) NOT NULL,
+    sku VARCHAR(50) UNIQUE,
+    stock_level INT NOT NULL DEFAULT 0,
+    unit_price DECIMAL(10, 2) NOT NULL,
+    supplier_id INT,
+    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- =========================================================
+-- 3. PREDICTIONS TABLE (Analytics/Risk Data)
+-- =========================================================
+CREATE TABLE IF NOT EXISTS predictions (
+    product_id INT PRIMARY KEY,
+    risk_level ENUM('Low', 'Medium', 'High') NOT NULL,
+    risk_score DECIMAL(5, 2) NOT NULL,
+    recommendation VARCHAR(255),
+    analysis_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES inventory(id) ON DELETE CASCADE
+);
+
+-- =========================================================
+-- 4. ALERTS TABLE (Notifications)
+-- =========================================================
+CREATE TABLE IF NOT EXISTS alerts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    type ENUM('Critical', 'Warning', 'Info') NOT NULL,
+    message TEXT NOT NULL,
+    product_id INT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES inventory(id) ON DELETE SET NULL
+);
+
+
+-- =========================================================
+-- SAMPLE DATA INSERTION
+-- =========================================================
+
+-- Sample Users (Password is 'password')
+INSERT INTO users (username, password, email) VALUES
+('admin', '$2y$10$wN9iLgR8P7V5oB0wM0qIwuGvN1J6F4s8X2y3bJ5d7e8f9c0a1b', 'admin@scm.com'); 
+
+-- Sample Inventory Data
+INSERT INTO inventory (product_name, sku, stock_level, unit_price) VALUES
+('Microcontroller X', 'MCUX-100', 500, 15.50),
+('Capacitor Array Y', 'CARY-201', 80, 2.75),
+('Thermal Sensor Z', 'TSNZ-305', 12, 45.00),
+('Actuator Motor A', 'AMOT-402', 150, 99.99),
+('Resistor Pack B', 'RESP-503', 15, 8.00);
+
+-- Sample Predictions (High-Risk Items: ID 3 and 5)
+INSERT INTO predictions (product_id, risk_level, risk_score, recommendation) VALUES
+(3, 'High', 0.92, 'Urgent reorder due to forecast spike.'),
+(5, 'High', 0.85, 'Review demand; potential obsolescence risk.'),
+(2, 'Medium', 0.55, 'Monitor buffer stock.');
+
+-- Sample Alerts (Critical Alerts)
+INSERT INTO alerts (type, message, product_id) VALUES
+('Critical', 'Stockout imminent for Thermal Sensor Z.', 3),
+('Critical', 'Resistor Pack B stock fell below safety threshold.', 5),
+('Warning', 'Microcontroller X demand projection decreased 15%.', 1);
